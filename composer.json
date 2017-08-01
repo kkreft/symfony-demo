@@ -23,6 +23,7 @@
         "doctrine/orm": "^2.5",
         "erusev/parsedown": "^1.5",
         "ezyang/htmlpurifier": "^4.7",
+        "guzzlehttp/guzzle": "~6.0",
         "incenteev/composer-parameter-handler": "^2.0",
         "qandidate/toggle-bundle": "^0.7.0",
         "sensio/distribution-bundle": "^5.0",

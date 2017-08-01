@@ -84,3 +84,12 @@ qandidate_toggle:
       admin-panel:
         name: admin-panel
         status: '%toggle.admin-panel%'
+      pagination:
+        name: pagination
+        status: conditionally-active
+        conditions:
+         - name: operator-condition
+           key: country
+           operator:
+               name: equal-to
+               value: Poland

@@ -15,6 +15,8 @@ use AppBundle\Entity\Comment;
 use AppBundle\Entity\Post;
 use AppBundle\Events;
 use AppBundle\Form\CommentType;
+use Qandidate\Toggle\ContextFactory;
+use Qandidate\Toggle\ToggleManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -36,6 +38,13 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class BlogController extends Controller
 {
+    private $context, $manager;
+
+    public function __construct(ToggleManager $manager, ContextFactory $contextFactory) {
+        $this->manager = $manager;
+        $this->context = $contextFactory->createContext();
+    }
+
     /**
      * @Route("/", defaults={"page": "1", "_format"="html"}, name="blog_index")
      * @Route("/rss.xml", defaults={"page": "1", "_format"="xml"}, name="blog_rss")
@@ -47,7 +56,7 @@ class BlogController extends Controller
      * Content-Type header for the response.
      * See https://symfony.com/doc/current/quick_tour/the_controller.html#using-formats
      */
-    public function indexAction($page, $_format)
+    public function indexAction($page, $_format, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $posts = $em->getRepository(Post::class)->findLatest($page);
@@ -55,7 +64,11 @@ class BlogController extends Controller
         // Every template name also has two extensions that specify the format and
         // engine for that template.
         // See https://symfony.com/doc/current/templating.html#template-suffix
-        return $this->render('blog/index.'.$_format.'.twig', ['posts' => $posts]);
+
+        return $this->render('blog/index.'.$_format.'.twig', [
+            'posts' => $posts,
+            'enablePagination' => $this->manager->active('pagination', $this->context),
+        ]);
     }
 
     /**

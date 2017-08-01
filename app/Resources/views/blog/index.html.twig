@@ -24,7 +24,7 @@
         <div class="well">{{ 'post.no_posts_found'|trans }}</div>
     {% endfor %}
 
-    {% if posts.haveToPaginate %}
+    {% if posts.haveToPaginate and enablePagination %}
         <div class="navigation text-center">
             {{ pagerfanta(posts, 'twitter_bootstrap3_translated', {routeName: 'blog_index_paginated'}) }}
         </div>

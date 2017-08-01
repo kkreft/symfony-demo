@@ -11,6 +11,10 @@ services:
 
     # makes classes in src/AppBundle available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
+
+    geolocation_context_factory:
+        class: AppBundle\ToggleFeature\GeolocationContextFactory
+
     AppBundle\:
         resource: '../../src/AppBundle/*'
         # you can exclude directories or files
@@ -23,6 +27,11 @@ services:
         resource: '../../src/AppBundle/Controller'
         public: true
         tags: ['controller.service_arguments']
+
+    AppBundle\Controller\BlogController:
+        public: true
+        arguments: ['@qandidate.toggle.manager', '@geolocation_context_factory']
+
 
     # Autowiring can't guess the constructor arguments that are not type-hinted with
     # classes (e.g. container parameters) so you must define those arguments explicitly
