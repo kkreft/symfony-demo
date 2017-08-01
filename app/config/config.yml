@@ -78,3 +78,9 @@ doctrine:
 swiftmailer:
     url : '%env(MAILER_URL)%'
     spool: { type: memory }
+qandidate_toggle:
+    persistence: config
+    toggles:
+      admin-panel:
+        name: admin-panel
+        status: '%toggle.admin-panel%'

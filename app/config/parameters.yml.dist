@@ -34,3 +34,6 @@ parameters:
     # If you don't use a real mail server, you can send emails via your Gmail account.
     # see https://symfony.com/doc/current/cookbook/email/gmail.html
     env(MAILER_URL): 'smtp://localhost:25?encryption=&auth_mode='
+
+    toggle.admin-panel: inactive
+

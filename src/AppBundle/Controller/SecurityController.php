@@ -11,6 +11,7 @@
 
 namespace AppBundle\Controller;
 
+use Qandidate\Bundle\ToggleBundle\Annotations\Toggle;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -26,6 +27,7 @@ class SecurityController extends Controller
 {
     /**
      * @Route("/login", name="security_login")
+     * @Toggle(name="admin-panel")
      */
     public function loginAction(AuthenticationUtils $helper)
     {
